@@ -38,20 +38,31 @@ class MainActivity : AppCompatActivity() {
           }
         }
         binding.btnDatepicker.setOnClickListener {
-            var selectedCalenderDate = Calendar.getInstance()
-            var d = selectedCalenderDate.get(Calendar.DAY_OF_MONTH)
-            var m = selectedCalenderDate.get(Calendar.MONTH)
-            var y = selectedCalenderDate.get(Calendar.YEAR)
-
-            val datePickerDialog = DatePickerDialog(this, {_,year,month,day ->
-            selectedCalenderDate.set(year,month,day)
-        },y,m,d)
-            datePickerDialog.show()
-
-            val simpledateformat = SimpleDateFormat("dd/MM/YYYY")
-            val formatedDate = simpledateformat.format(selectedCalenderDate.time)
-            binding.tvDatepicker.setText(formatedDate)
+            showDatePickerDialog()
         }
-    }
 
+        }
+    fun showDatePickerDialog() {
+        var selectedCalenderDate = Calendar.getInstance()
+        var d = selectedCalenderDate.get(Calendar.DAY_OF_MONTH)
+        var m = selectedCalenderDate.get(Calendar.MONTH)
+        var y = selectedCalenderDate.get(Calendar.YEAR)
+
+        val datePickerDialog = DatePickerDialog(this@MainActivity, { _, year, month, day ->
+            selectedCalenderDate.set(year, month, day)
+        //MMM-Mar, Jan, Feb
+//            MM - Month
+//            mm-minutes
+        //hh-12hour format
+        //aa -AM/PM
+        //HH-24hour format
+        //ss-seconds
+
+        val simpledateformat = SimpleDateFormat("dd/MM/yyyy")
+        val formatedDate = simpledateformat.format(selectedCalenderDate.time)
+        binding.tvDatepicker.setText(formatedDate)
+        }, y, m, d)
+        datePickerDialog.show()
+    }
 }
+
